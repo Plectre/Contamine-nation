@@ -7,7 +7,8 @@ love.graphics.setDefaultFilter("nearest")
 
 -- Cette ligne permet de déboguer pas à pas dans ZeroBraneStudio
 if arg[#arg] == "-debug" then require("mobdebug").start() end
---kiki mou
+
+require("splash")
 require("init")
 require("grid")
 require("utils")
@@ -21,20 +22,39 @@ end
 
 function love.update(dt)
     mouseX,mouseY = love.mouse.getPosition()
-    updateVirus(dt)
-    tick(2)
+    if gameState == "game" then
+        updateVirus(dt)
+        updateTime()
+        tick(tic)
+        addVaccins()
+    end
 end
 
 function love.draw()
     love.graphics.setColor(255, 255, 255, 1)
     love.graphics.draw(bg,-20,0,0,0.8,0.7)
-    drawMap()
-    drawLines()
-    drawVirus()
-    drawUi()
+
+    if gameState == "game" then
+        drawMap()
+        drawLines()
+        drawVirus()
+        drawUi()
+    end
+    if gameState == "splashScreen" then
+        drawMap()
+        drawLines()
+        drawSplashScreen()
+    end
 end
 
-
 function love.mousepressed(x, y, btn, istouch, pressed)
-    vaccinFactory(x, y, btn, istouch, pressed)
+    if gameState == "game" then
+        vaccinFactory(x, y, btn, istouch, pressed)
+    end
+end
+
+function love.keypressed(key, scancode, isrepeat)
+    if key == "space" then
+        gameState = "game"
+    end
 end

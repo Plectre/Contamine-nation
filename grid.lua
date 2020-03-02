@@ -58,18 +58,20 @@ function drawMap()
 end
 
 function vaccinFactory(x, y, btn, istouch, pressed)
-    if nbVaccin < 5 then
-        nbVaccin = nbVaccin + 1
         local l, c = wrapperColLine(x, y)
         local currentItem = map[l][c]
         if btn == 1 then
             if l<=10 and c<=20 then
-                if currentItem == 0 then
-                    map[l][c] = 1
-                elseif currentItem == 1 then
-                    map[l][c] = 0
+                if nbVaccin < maxVaccins then
+                    if currentItem == 0 then
+                        nbVaccin = nbVaccin + 1
+                        map[l][c] = 1
+                    end
                 end
+                    if currentItem == 1 then
+                        map[l][c] = 0
+                        nbVaccin = nbVaccin - 1
+                    end
             end
-        end
     end
 end

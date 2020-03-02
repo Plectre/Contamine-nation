@@ -1,10 +1,15 @@
 viruses = {}
 foyers = {}
-cpFoyer = 0
+nbFoyer = 0
 rndDir = 0
 nbVirus = 0
+nbZoneConta = 0
 virusHeight = 5
 offsetVirus = virusHeight*4
+virusBlock = 0
+minSpeed = 250
+maxSpeed = 350
+
 function virusFactory()
     math.randomseed(os.clock())
     rndDir = math.random(1,4) -- random direction
@@ -12,7 +17,7 @@ function virusFactory()
     virus = {   dir = "",
                 x = 0,
                 y = 0,
-                speed = math.random(200,400)}
+                speed = math.random(minSpeed,maxSpeed)}
 
     if rndDir == 1 then virus.dir="west" virus.x = -20 virus.y = math.floor(math.random(1,9)*40)+offsetVirus elseif
         rndDir == 2 then virus.dir="nord" virus.x = math.floor(math.random(1,20)*40)+offsetVirus virus.y = -20 elseif
@@ -36,9 +41,11 @@ function updateVirus(dt)
         -- out of screen
         if v.x>850 or v.x < -20 then
             table.remove(viruses, idx)
+            addFoyer()
         end
         if v.y>= 390 or v.y<-20 then
             table.remove(viruses, idx )
+            addFoyer()
         end
         -- from direction
         if v.dir == "west" then
@@ -66,6 +73,7 @@ end
             virusFactory()
             map[l][c] = 0
             nbVaccin = nbVaccin - 1
+            virusBlock = virusBlock + 1
         end
     end
  end
