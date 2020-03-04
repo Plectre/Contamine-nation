@@ -66,7 +66,6 @@ function updateVirus(dt)
 end
 
  function virusIsCollide(l,c,v,idx)
-    print(l)
     -- Detection de collision
     if l>=1 and l<=20 and c >=1 and c<=40 then
         if map[l][c] == 1 then

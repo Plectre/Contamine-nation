@@ -5,6 +5,7 @@ nbZoneConta = 0
 maxContamination = 50
 
 function initGame()
+    map={}
     viruses = {}
     initMap()
 end
