@@ -1,15 +1,36 @@
 local debug = false
 local oldTime = 0
 local oldVaccin = 0
+nbZoneConta = 0
+maxContamination = 50
+
+function initGame()
+    viruses = {}
+    initMap()
+end
+
 function resetColor(alpha)
     love.graphics.setColor(255, 255, 255, alpha)
 end
 
+function getNbZoneConta()
+    local rateOfContamination  = math.floor(nbZoneConta/20*10)
+    if nbZoneConta > 0  then
+        if rateOfContamination < maxContamination then
+            return tostring(rateOfContamination);
+        else
+            nbZoneConta = 0
+            rateOfContamination = 0
+            gameState = "gameOver"
+        end
+    end
+    return 0;
+end
 function addFoyer()
     nbFoyer = nbFoyer + 1
     if nbFoyer >= 5 then
         local l = math.random(1, #map)
-        local c = math.ceil(math.random(1, #map)/2)
+        local c = math.ceil(math.random(1, #map))
         while map[l][c] == 0 do
             map[l][c] = 2
             nbZoneConta = nbZoneConta + 1
@@ -34,9 +55,9 @@ function addVaccins()
         oldVaccin = cTime
     end
 end
-function wrapperColLine(x, y)
-    local c = math.floor(x/40)+1
+function wrapperColLine(y, x)
     local l = math.floor(y/40)+1
+    local c = math.floor(x/40)+1
     return l,c
 end
 

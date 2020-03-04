@@ -1,5 +1,23 @@
 nbVaccin = 0
-map =   {   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+map = {}
+
+for l=1, 40 do
+    map[l] = {}
+    for c=1, 20 do
+        map[l][c] = 0
+    end
+end
+
+function initMap()
+    for l=1, 40 do
+        map[l] = {}
+        for c=1, 20 do
+            map[l][c] = 0
+        end
+    end
+    return map
+end
+--[[ map = {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -19,9 +37,9 @@ map =   {   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        }
+        } ]]
 -- dimension de la tile
-local dim_tile = width/#map
+local dim_tile = #map
 
 function drawLines()
     love.graphics.setColor(255, 255, 255, 0.2)
@@ -42,26 +60,26 @@ end
 function drawMap()
     for l=1, #map do
         for c=1, #map[l] do
-            if map[c][l] == 1 then
+            if map[l][c] == 1 then
                 love.graphics.setColor(0, 255, 0, 0.5)
                 --love.graphics.rectangle("fill", (l*dim_tile)-dim_tile, (c*dim_tile)-dim_tile, 40, 40)
-                love.graphics.circle("fill", l*dim_tile-20, c*dim_tile-20, 20)
+                love.graphics.circle("fill", c*dim_tile-20, l*dim_tile-20, 20)
             end
             if map[l][c] == 2 then
                 love.graphics.setColor(255, 0, 0, 0.5)
                 --love.graphics.rectangle("fill", (l*dim_tile)-dim_tile, (c*dim_tile)-dim_tile, 40, 40)
-                love.graphics.circle("fill", l*dim_tile-20, c*dim_tile-20, 20)
+                love.graphics.circle("fill", c*#map-20, math.ceil(l*10-20), 20)
             end
         end
     end
-
 end
 
 function vaccinFactory(x, y, btn, istouch, pressed)
-        local l, c = wrapperColLine(x, y)
+        local l, c = wrapperColLine(y, x)
+        --print("ligne: "..l, "colone: "..c)
         local currentItem = map[l][c]
         if btn == 1 then
-            if l<=10 and c<=20 then
+            --if l<=10 and c<=20 then
                 if nbVaccin < maxVaccins then
                     if currentItem == 0 then
                         nbVaccin = nbVaccin + 1
@@ -72,6 +90,6 @@ function vaccinFactory(x, y, btn, istouch, pressed)
                         map[l][c] = 0
                         nbVaccin = nbVaccin - 1
                     end
-            end
+            --end
     end
 end

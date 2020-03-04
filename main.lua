@@ -8,14 +8,16 @@ love.graphics.setDefaultFilter("nearest")
 -- Cette ligne permet de déboguer pas à pas dans ZeroBraneStudio
 if arg[#arg] == "-debug" then require("mobdebug").start() end
 
-require("splash")
 require("init")
+require("splash")
 require("grid")
 require("utils")
 require("virus")
 require("ui")
 
 function love.load()
+    initGame()
+    initMap()
     print("width:"..width)
     print("height:"..height)
 end
@@ -28,22 +30,28 @@ function love.update(dt)
         tick(tic)
         addVaccins()
     end
+    if gameState == "gameOver"  then
+        initGame()
+    end
 end
 
 function love.draw()
     love.graphics.setColor(255, 255, 255, 1)
     love.graphics.draw(bg,-20,0,0,0.8,0.7)
 
+    if gameState == "splashScreen" then
+        drawMap()
+        drawLines()
+        drawSplashScreen()
+    end
     if gameState == "game" then
         drawMap()
         drawLines()
         drawVirus()
         drawUi()
     end
-    if gameState == "splashScreen" then
-        drawMap()
-        drawLines()
-        drawSplashScreen()
+    if gameState == "gameOver" then
+        drawGameOver()
     end
 end
 

@@ -3,7 +3,7 @@ foyers = {}
 nbFoyer = 0
 rndDir = 0
 nbVirus = 0
-nbZoneConta = 0
+--nbZoneConta = 0
 virusHeight = 5
 offsetVirus = virusHeight*4
 virusBlock = 0
@@ -60,12 +60,13 @@ function updateVirus(dt)
         if v.dir == "south" then
             v.y = v.y - v.speed*dt
         end
-        local l, c = wrapperColLine(v.x, v.y)
+        local l, c = wrapperColLine(v.y, v.x)
         virusIsCollide(l, c, v, idx)
     end
 end
 
  function virusIsCollide(l,c,v,idx)
+    print(l)
     -- Detection de collision
     if l>=1 and l<=20 and c >=1 and c<=40 then
         if map[l][c] == 1 then
@@ -81,7 +82,6 @@ end
  function foyerInfection(v)
     local l, c = wrapperColLine(v.y, v.x)
     local foyer = {}
-    print(map[l][c])
     if map[l][c] ~= 2 and map[l][c] ~= 1 then
         map[l][c] = 2
         foyer.l = l

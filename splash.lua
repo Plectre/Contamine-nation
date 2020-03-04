@@ -11,3 +11,10 @@ function drawSplashScreen()
     love.graphics.print(string_4, 20, 470)
     love.graphics.print("APPUYER SUR ESPACE POUR JOUER", 200, 550, 0, 2, 2)
 end
+function drawGameOver()
+    drawMap()
+    drawLines()
+    drawVirus()
+    drawUi()
+    love.graphics.print("APPUYER SUR ESPACE POUR JOUER", 200, 550, 0, 2, 2)
+end
