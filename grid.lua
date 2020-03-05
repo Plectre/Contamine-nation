@@ -1,21 +1,18 @@
 nbVaccin = 0
 map = {}
-
-for l=1, 40 do
+for l=1, 10 do
     map[l] = {}
     for c=1, 20 do
         map[l][c] = 0
     end
 end
-
 function initMap()
-    for l=1, 40 do
+    for l=1, 10 do
         map[l] = {}
         for c=1, 20 do
             map[l][c] = 0
         end
     end
-    return map
 end
 --[[ map = {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -63,12 +60,12 @@ function drawMap()
             if map[l][c] == 1 then
                 love.graphics.setColor(0, 255, 0, 0.5)
                 --love.graphics.rectangle("fill", (l*dim_tile)-dim_tile, (c*dim_tile)-dim_tile, 40, 40)
-                love.graphics.circle("fill", c*dim_tile-20, l*dim_tile-20, 20)
+                love.graphics.circle("fill", c*40-20, l*40-20, 20)
             end
             if map[l][c] == 2 then
                 love.graphics.setColor(255, 0, 0, 0.5)
                 --love.graphics.rectangle("fill", (l*dim_tile)-dim_tile, (c*dim_tile)-dim_tile, 40, 40)
-                love.graphics.circle("fill", c*#map-20, math.ceil(l*10-20), 20)
+                love.graphics.circle("fill", c*40-20, l*40-20, 20)
             end
         end
     end

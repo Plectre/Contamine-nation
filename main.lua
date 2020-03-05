@@ -16,7 +16,6 @@ require("virus")
 require("ui")
 
 function love.load()
-    initGame()
     initMap()
     print("width:"..width)
     print("height:"..height)
@@ -52,6 +51,7 @@ function love.draw()
     end
     if gameState == "gameOver" then
         drawGameOver()
+        initGame()
     end
 end
 

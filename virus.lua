@@ -3,7 +3,7 @@ foyers = {}
 nbFoyer = 0
 rndDir = 0
 nbVirus = 0
---nbZoneConta = 0
+nbZoneConta = 0
 virusHeight = 5
 offsetVirus = virusHeight*4
 virusBlock = 0
@@ -67,10 +67,10 @@ end
 
  function virusIsCollide(l,c,v,idx)
     -- Detection de collision
-    if l>=1 and l<=20 and c >=1 and c<=40 then
+    if l>=1 and l<=10 and c >=1 and c<=20 then
         if map[l][c] == 1 then
             table.remove(viruses, idx)
-            virusFactory()
+            --virusFactory()
             map[l][c] = 0
             nbVaccin = nbVaccin - 1
             virusBlock = virusBlock + 1

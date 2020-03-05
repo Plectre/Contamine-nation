@@ -1,14 +1,7 @@
 local debug = false
 local oldTime = 0
 local oldVaccin = 0
-nbZoneConta = 0
-maxContamination = 50
 
-function initGame()
-    map={}
-    viruses = {}
-    initMap()
-end
 
 function resetColor(alpha)
     love.graphics.setColor(255, 255, 255, alpha)
@@ -30,8 +23,8 @@ end
 function addFoyer()
     nbFoyer = nbFoyer + 1
     if nbFoyer >= 5 then
-        local l = math.random(1, #map)
-        local c = math.ceil(math.random(1, #map))
+        local l = math.random(1, 10)
+        local c = math.ceil(math.random(1, 20))
         while map[l][c] == 0 do
             map[l][c] = 2
             nbZoneConta = nbZoneConta + 1
