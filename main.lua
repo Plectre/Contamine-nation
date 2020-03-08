@@ -14,9 +14,11 @@ require("grid")
 require("utils")
 require("virus")
 require("ui")
+require("victory")
+require("loose")
 
 function love.load()
-    initMap()
+    initGame()
     print("width:"..width)
     print("height:"..height)
 end
@@ -24,13 +26,20 @@ end
 function love.update(dt)
     mouseX,mouseY = love.mouse.getPosition()
     if gameState == "game" then
+        isLooses()
+        timeRemaining = math.abs(math.ceil((startTime + timeToEndGame) - updateTime()))
         updateVirus(dt)
         updateTime()
         tick(tic)
         addVaccins()
+        timeToEnd()
     end
     if gameState == "gameOver"  then
         initGame()
+    end
+    if gameState == "victory"  then
+        initGame()
+        startTime = os.clock()
     end
 end
 
@@ -51,7 +60,14 @@ function love.draw()
     end
     if gameState == "gameOver" then
         drawGameOver()
-        initGame()
+    end
+    if gameState == "victory"  then
+        drawVictory()
+        drawMap()
+        drawLines()
+    end
+    if gameState == "loose"  then
+        drawLoose()
     end
 end
 
@@ -63,6 +79,18 @@ end
 
 function love.keypressed(key, scancode, isrepeat)
     if key == "space" then
-        gameState = "game"
+        if gameState == "gameOver" then
+            gameState = "game"
+        end
+        if gameState == "victory" then
+            gameState = "game"
+        end
+        if gameState == "splashScreen" then
+            gameState = "game"
+        end
+        if gameState == "loose" then
+            gameState = "game"
+            initGame()
+        end
     end
 end
